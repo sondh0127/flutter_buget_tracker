@@ -21,4 +21,9 @@ class Item {
       date: dateStr != null ? DateTime.parse(dateStr) : DateTime.now(),
     );
   }
+
+  static bool isEmpty(Map<String, dynamic> map) {
+    final properties = map['properties'] as Map<String, dynamic>;
+    return properties['Name']?['title'].length == 0;
+  }
 }
