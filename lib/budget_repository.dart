@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_buget_tracker/failure_model.dart';
 import 'package:flutter_buget_tracker/item_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -31,9 +30,9 @@ class BudgetRepository {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
         print(data);
-        return (data['results'] as List)
-            .where((e) => !Item.isEmpty(e))
-            .map((e) => Item.fromMap(e))
+        return (data['results'] as List<dynamic>)
+            .where((e) => !Item.isEmpty(e as Map<String, dynamic>))
+            .map((e) => Item.fromMap(e as Map<String, dynamic>))
             .toList()
               ..sort((a, b) => b.date.compareTo(a.date));
       } else {

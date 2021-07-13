@@ -28,6 +28,32 @@ class _BudgetScreenState extends State<BudgetScreen> {
       appBar: AppBar(
         title: const Text('Budget Tracker'),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Pokedex'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/pokedex');
+              },
+            ),
+            ListTile(
+              title: const Text('Home'),
+              onTap: () {
+                // ...
+              },
+            ),
+          ],
+        ),
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           _futureItems = BudgetRepository().getItems();
@@ -41,7 +67,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
               final items = snapshot.data!;
               return Provider<List<Item>>.value(
                 value: items,
-                child: SpendingList(),
+                child: const SpendingList(),
               );
             } else if (snapshot.hasError) {
               final failure = snapshot.error as Failure;
@@ -67,7 +93,6 @@ class SpendingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _items = context.watch<List<Item>>();
-    print(_items);
     return ListView.builder(
       itemCount: _items.length + 1,
       itemBuilder: (BuildContext context, int index) {

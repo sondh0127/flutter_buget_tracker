@@ -13,11 +13,11 @@ class Item {
 
   factory Item.fromMap(Map<String, dynamic> map) {
     final properties = map['properties'] as Map<String, dynamic>;
-    final dateStr = properties['Date']?['date']?['start'];
+    final dateStr = (properties['Date']?['date']?['start']) as String;
     return Item(
-      name: properties['Name']?['title']?[0]?['plain_text'] ?? '?',
-      category: properties['Category']?['select']?['name'] ?? 'Any',
-      price: (properties['Price']?['number'] ?? 0).toDouble(),
+      name: (properties['Name']?['title']?[0]?['plain_text'] ?? '?') as String,
+      category: (properties['Category']?['select']?['name'] ?? 'Any') as String,
+      price: (properties['Price']?['number'] ?? 0).toDouble() as double,
       date: dateStr != null ? DateTime.parse(dateStr) : DateTime.now(),
     );
   }
